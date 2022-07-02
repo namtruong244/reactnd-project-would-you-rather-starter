@@ -1,4 +1,4 @@
-import {Box, Card, Typography} from "@mui/material";
+import {Box, Card} from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import {useState} from "react";
@@ -36,7 +36,7 @@ export const HomePage = () => {
                 </Tabs>
                 {tabValue === 0 && (
                     <Box display={"flex"} flexWrap={"wrap"} justifyContent={"center"} alignItems={"space-between"}>
-                        {userHasQuestion.map(user => <Segment key={user.id} user={user} questions={questions}/>)}
+                        {userHasQuestion.map((user, index) => <Segment key={`${user.id}-${index}`} user={user} questions={questions}/>)}
                     </Box>
                 )}
                 {tabValue === 1 && (
