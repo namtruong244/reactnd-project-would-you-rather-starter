@@ -18,6 +18,9 @@ export const questionsSlice = createSlice({
             const {questionId, option, userId} = action.payload
             state.questions[questionId][option].votes = [...state.questions[questionId][option].votes, userId]
         },
+        addNewQuestion: (state, action) => {
+            state.questions[action.payload.id] = action.payload
+        }
     },
     extraReducers: {
         [fetchAllQuestions.fulfilled]: (state, action) => {
@@ -27,6 +30,6 @@ export const questionsSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const {addVotes} = questionsSlice.actions
+export const {addVotes, addNewQuestion} = questionsSlice.actions
 
 export default questionsSlice.reducer
