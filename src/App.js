@@ -7,6 +7,7 @@ import {HomePage} from "./features/home/HomePage";
 import {NewPollPage} from "./features/newPoll/NewPollPage";
 import {NavBar} from "./components/NavBar/NavBar";
 import {AnswerPollPage} from "./features/answerPoll/AnswerPollPage";
+import {LeaderBoardPage} from "./features/leaderBoard/LeaderBoardPage";
 
 const App = () => {
     const {currentUser} = useSelector(state => state.auth)
@@ -20,6 +21,7 @@ const App = () => {
                     {currentUser === null && <Route path="/*" component={LoginPage} />}
                     <Route path="/questions/:questionId" component={AnswerPollPage} />
                     <Route path="/add" component={NewPollPage} />
+                    <Route path="/leaderboard" component={LeaderBoardPage} />
                     <Route path="/" component={HomePage} />
                 </Switch>
             </Container>

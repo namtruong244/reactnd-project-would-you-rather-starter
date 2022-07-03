@@ -39,8 +39,6 @@ export const HomePage = () => {
         }
     })
 
-    console.log(answeredQuestion)
-
     return (
         <Box sx={{ width: '60%', bgColor: 'background.paper' }} mt={2}>
             <Card variant="outlined">
