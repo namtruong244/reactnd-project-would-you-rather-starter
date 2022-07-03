@@ -1,27 +1,23 @@
 import {Poll} from "../../components/Poll/Poll";
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {Box, Button, FormControl, FormControlLabel, Radio, RadioGroup} from "@mui/material";
-import {useState} from "react";
+import {Box} from "@mui/material";
 import {addAnswer} from "../initProvider/usersSlice";
 import {addVotes} from "../initProvider/questionsSlice";
+import {AnswerPoll} from "./components/AnswerPoll";
+import {ResultPoll} from "./components/ResultPoll";
 
 export const AnswerPollPage = () => {
     const {questions} = useSelector(state => state.questions)
     const {users} = useSelector(state => state.users)
     const {currentUser} = useSelector(state => state.auth)
     const dispatch = useDispatch()
-    const [answer, setAnswer] = useState("")
-
     const {questionId} = useParams()
 
     const author = users[questions[questionId].author]
+    const answer = users[currentUser.id].answers[questionId]
 
-    const answerChangeHandler = (event) => {
-        setAnswer(event.target.value);
-    }
-
-    const submitAnswerHandler = () => {
+    const submitAnswerHandler = (answer) => {
         const answerInfo = {
             userId: currentUser.id,
             questionId,
@@ -34,27 +30,8 @@ export const AnswerPollPage = () => {
     return (
         <Box width={"70%"}>
             <Poll user={author}>
-                <FormControl sx={{ml: 5}}>
-                    <RadioGroup
-                        aria-labelledby="demo-radio-buttons-group-label"
-                        name="radio-buttons-group"
-                        value={answer}
-                        onChange={answerChangeHandler}
-                    >
-                        <FormControlLabel value="optionOne" control={<Radio />} label={questions[questionId].optionOne.text} />
-                        <FormControlLabel value="optionTwo" control={<Radio />} label={questions[questionId].optionTwo.text} />
-                    </RadioGroup>
-                </FormControl>
-                <Button
-                    fullWidth
-                    variant="contained"
-                    color={"success"}
-                    sx={{mt: 2}}
-                    disabled={!answer}
-                    onClick={submitAnswerHandler}
-                >
-                    Submit
-                </Button>
+                {!answer && <AnswerPoll questions={questions[questionId]} onSubmit={submitAnswerHandler}/>}
+                {answer && <ResultPoll questions={questions[questionId]} answer={answer}/>}
             </Poll>
         </Box>
     )

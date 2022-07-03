@@ -8,6 +8,7 @@ import {Segment} from "./components/Segment";
 export const HomePage = () => {
     const { users } = useSelector(state => state.users)
     const { questions } = useSelector(state => state.questions)
+    const {currentUser} = useSelector(state => state.auth)
 
     const [tabValue, setTabValue] = useState(0);
 
@@ -17,15 +18,28 @@ export const HomePage = () => {
 
     const userHasQuestion = Object.keys(users).reduce((prevValue, curValue) => {
         const user = users[curValue]
-        user.questions.forEach(question => {
-            prevValue.push({
-                name: user.name,
-                avatarURL: user.avatarURL,
-                questionId: question
-            })
+        user.questions.forEach(questionId => {
+            if (users[currentUser.id].answers[questionId] === undefined) {
+                prevValue.push({
+                    name: user.name,
+                    avatarURL: user.avatarURL,
+                    questionId: questionId
+                })
+            }
         })
         return prevValue
     }, [])
+
+    const answeredQuestion = Object.keys(users[currentUser.id].answers).map(questionId => {
+        const userOfQuestion = users[questions[questionId].author]
+        return {
+            name: userOfQuestion.name,
+            avatarURL: userOfQuestion.avatarURL,
+            questionId: questionId
+        }
+    })
+
+    console.log(answeredQuestion)
 
     return (
         <Box sx={{ width: '60%', bgColor: 'background.paper' }} mt={2}>
@@ -40,8 +54,9 @@ export const HomePage = () => {
                     </Box>
                 )}
                 {tabValue === 1 && (
-                    // <Typography>No answered</Typography>
-                    <></>
+                    <Box display={"flex"} flexWrap={"wrap"} justifyContent={"center"} alignItems={"space-between"}>
+                        {answeredQuestion.map((user, index) => <Segment key={`${user.id}-${index}`} user={user} questions={questions} isAnswered={true}/>)}
+                    </Box>
                 )}
             </Card>
         </Box>

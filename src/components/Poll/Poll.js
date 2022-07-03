@@ -12,9 +12,6 @@ export const Poll = ({user, children}) => {
                     <Box component={"img"} width={"120px"} height={"120px"} src={user.avatarURL} mr={2}></Box>
                     <Divider orientation="vertical" flexItem/>
                     <Box sx={{ml: 2}} display={"flex"} flexDirection={"column"} alignItems={"start"} justifyContent={"start"} width={'100%'}>
-                        <Typography fontSize={16} variant="h6" component="h6">
-                            Would you rather
-                        </Typography>
                         {children}
                     </Box>
                 </Box>

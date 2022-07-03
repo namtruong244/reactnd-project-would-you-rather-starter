@@ -2,7 +2,7 @@ import {Button, Typography} from "@mui/material";
 import {Poll} from "../../../components/Poll/Poll";
 import {useHistory} from "react-router-dom";
 
-export const Segment = ({user, questions}) => {
+export const Segment = ({user, questions, isAnswered=false}) => {
     const history = useHistory()
 
     const answerPollHandler = () => {
@@ -20,11 +20,11 @@ export const Segment = ({user, questions}) => {
             <Button
                 fullWidth
                 variant="contained"
-                color={"success"}
+                color={isAnswered ? "info" : "success"}
                 sx={{mt: 2}}
                 onClick={answerPollHandler}
             >
-                Answer Poll
+                {isAnswered ? "Result" : "Answer Poll"}
             </Button>
         </Poll>
     )
