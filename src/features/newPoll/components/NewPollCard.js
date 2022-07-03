@@ -1,20 +1,21 @@
 import {Box, Button, Card, CardContent, Divider, TextField, Typography} from "@mui/material";
 import {useState} from "react";
+import PropTypes from "prop-types";
 
 export const NewPollCard = ({onSubmit}) => {
-    const [optionOne, setOptionOne] = useState("")
-    const [optionTwo, setOptionTwo] = useState("")
+    const [optionOne, setOptionOne] = useState("");
+    const [optionTwo, setOptionTwo] = useState("");
 
     const onSubmitHandler = () => {
-        onSubmit({optionOne, optionTwo})
+        onSubmit({optionOne, optionTwo});
     }
 
     const changeQuestionValueHandler = (event) => {
-        const input = event.target
+        const input = event.target;
         if (input.id === "option-one"){
-            setOptionOne(input.value)
+            setOptionOne(input.value);
         }else{
-            setOptionTwo(input.value)
+            setOptionTwo(input.value);
         }
     }
 
@@ -54,4 +55,8 @@ export const NewPollCard = ({onSubmit}) => {
             </CardContent>
         </Card>
     )
+}
+
+NewPollCard.propTypes = {
+    onSubmit: PropTypes.func
 }

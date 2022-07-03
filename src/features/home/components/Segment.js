@@ -1,12 +1,13 @@
 import {Button, Typography} from "@mui/material";
 import {Poll} from "../../../components/Poll/Poll";
 import {useHistory} from "react-router-dom";
+import PropTypes from "prop-types";
 
 export const Segment = ({user, questions, isAnswered=false}) => {
-    const history = useHistory()
+    const history = useHistory();
 
     const answerPollHandler = () => {
-        history.push(`/questions/${user.questionId}`)
+        history.push(`/questions/${user.questionId}`);
     }
 
     return (
@@ -28,4 +29,10 @@ export const Segment = ({user, questions, isAnswered=false}) => {
             </Button>
         </Poll>
     )
+}
+
+Segment.propTypes = {
+    user: PropTypes.object,
+    questions: PropTypes.object,
+    isAnswered: PropTypes.bool
 }

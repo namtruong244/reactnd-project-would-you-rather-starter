@@ -2,7 +2,7 @@ import {useSelector} from "react-redux";
 import {Box, Typography} from "@mui/material";
 
 export const UserInfo = () => {
-    const currentUser = useSelector(state => state.auth.currentUser)
+    const currentUser = useSelector(state => state.auth.currentUser);
 
     return (
         <Box display={"flex"} alignItems={"center"}>

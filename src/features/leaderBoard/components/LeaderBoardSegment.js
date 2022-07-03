@@ -1,20 +1,21 @@
 import {Box, Card, CardContent, Divider, Typography} from "@mui/material";
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
+import PropTypes from "prop-types";
 
-const trophyColor = {
+const TROPHY_COLOR = {
   0: "#fbbd08",
   1: "#767676",
   2: "#f2711c"
-}
+};
 
-export const LeaderBoardSegment = ({user, trophyColorIndex}) => {
-  const totalAnswer = Object.keys(user.answers).length
-  const totalQuestion = user.questions.length
+export const LeaderBoardSegment = ({ user, trophyColorIndex }) => {
+  const totalAnswer = Object.keys(user.answers).length;
+  const totalQuestion = user.questions.length;
 
   return (
       <Card variant={"outlined"} sx={{width: "90%", mt: 1, mb: 1, position: "relative"}}>
         <Box position={"absolute"} sx={{
-          backgroundColor: trophyColor[trophyColorIndex],
+          backgroundColor: TROPHY_COLOR[trophyColorIndex],
           width: "100px",
           height: "100px",
           transform: "rotate(45deg)",
@@ -58,4 +59,9 @@ export const LeaderBoardSegment = ({user, trophyColorIndex}) => {
         </CardContent>
       </Card>
   )
+}
+
+LeaderBoardSegment.propTypes = {
+  user: PropTypes.object,
+  trophyColorIndex: PropTypes.number
 }

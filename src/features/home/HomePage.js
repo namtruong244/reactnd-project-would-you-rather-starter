@@ -6,9 +6,9 @@ import {useSelector} from "react-redux";
 import {Segment} from "./components/Segment";
 
 export const HomePage = () => {
-    const { users } = useSelector(state => state.users)
-    const { questions } = useSelector(state => state.questions)
-    const {currentUser} = useSelector(state => state.auth)
+    const { users } = useSelector(state => state.users);
+    const { questions } = useSelector(state => state.questions);
+    const { currentUser } = useSelector(state => state.auth);
 
     const [tabValue, setTabValue] = useState(0);
 
@@ -17,7 +17,7 @@ export const HomePage = () => {
     };
 
     const userHasQuestion = Object.keys(users).reduce((prevValue, curValue) => {
-        const user = users[curValue]
+        const user = users[curValue];
         user.questions.forEach(questionId => {
             if (users[currentUser.id].answers[questionId] === undefined) {
                 prevValue.push({
@@ -26,9 +26,9 @@ export const HomePage = () => {
                     questionId: questionId
                 })
             }
-        })
+        });
         return prevValue
-    }, [])
+    }, []);
 
     const answeredQuestion = Object.keys(users[currentUser.id].answers).map(questionId => {
         const userOfQuestion = users[questions[questionId].author]
@@ -37,7 +37,7 @@ export const HomePage = () => {
             avatarURL: userOfQuestion.avatarURL,
             questionId: questionId
         }
-    })
+    });
 
     return (
         <Box sx={{ width: '60%', bgColor: 'background.paper' }} mt={2}>

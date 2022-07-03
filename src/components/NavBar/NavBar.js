@@ -1,44 +1,47 @@
-import * as React from 'react';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
-import {useState} from "react";
+import * as React from "react";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
+import {useEffect, useState} from "react";
 import {UserInfo} from "./UserInfo";
 import {Button} from "@mui/material";
 import {useDispatch} from "react-redux";
 import {logout} from "../../features/login/authSlice";
-import { useHistory } from "react-router-dom";
-
-const PATH_URL = {
-    0: "/",
-    1: "/add",
-    2: "/leaderboard"
-}
+import {useHistory, useLocation} from "react-router-dom";
 
 export const NavBar = () => {
-    const dispatch = useDispatch()
-    const [value, setValue] = useState(0);
+    const dispatch = useDispatch();
+    const [value, setValue] = useState("/");
     const history = useHistory();
+    const location = useLocation();
 
-    const handleChange = (event, newValue) => {
+    useEffect(() => {
+        if(location.pathname.startsWith("/questions")) {
+            setValue(false);
+        }else{
+            setValue(location.pathname);
+        }
+    }, [location])
+
+    const handleChange = (_, newValue) => {
         setValue(newValue);
-        history.push(PATH_URL[newValue])
+        history.push(newValue);
     };
 
     const logoutHandler = () => {
-        dispatch(logout())
-    }
+        dispatch(logout());
+    };
 
     return (
-        <Box sx={{ width: '100%' }} display={"flex"} justifyContent={"space-between"} alignItems={"center"}>
+        <Box sx={{ width: "100%" }} display={"flex"} justifyContent={"space-between"} alignItems={"center"}>
             <Tabs
                 onChange={handleChange}
                 value={value}
                 aria-label="Tabs where each tab needs to be selected manually"
             >
-                <Tab label="Home" />
-                <Tab label="New Poll" />
-                <Tab label="Leader Board" />
+                <Tab label="Home" value='/' ></Tab>
+                <Tab label="New Poll" value='/add' />
+                <Tab label="Leader Board" value='/leaderboard'/>
             </Tabs>
             <Box display={"flex"}>
                 <UserInfo />

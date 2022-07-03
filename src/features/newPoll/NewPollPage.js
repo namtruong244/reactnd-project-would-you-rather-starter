@@ -6,9 +6,9 @@ import {addQuestion} from "../initProvider/usersSlice";
 import {useHistory} from "react-router-dom";
 
 export const NewPollPage = () => {
-    const {currentUser} = useSelector(state => state.auth)
-    const dispatch = useDispatch()
-    const history = useHistory()
+    const {currentUser} = useSelector(state => state.auth);
+    const dispatch = useDispatch();
+    const history = useHistory();
 
     const submitNewPoll = ({optionOne, optionTwo}) => {
         const question = {
@@ -16,10 +16,10 @@ export const NewPollPage = () => {
             optionTwoText: optionTwo,
             author: currentUser.id
         }
-        const formattedQuestion = formatQuestion(question)
-        dispatch(addQuestion({userId: currentUser.id, questionId: formattedQuestion.id}))
-        dispatch(addNewQuestion(formattedQuestion))
-        history.push("/")
+        const formattedQuestion = formatQuestion(question);
+        dispatch(addQuestion({userId: currentUser.id, questionId: formattedQuestion.id}));
+        dispatch(addNewQuestion(formattedQuestion));
+        history.push("/");
     }
 
     return (

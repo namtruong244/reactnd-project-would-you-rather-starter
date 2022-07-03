@@ -10,7 +10,7 @@ import {AnswerPollPage} from "./features/answerPoll/AnswerPollPage";
 import {LeaderBoardPage} from "./features/leaderBoard/LeaderBoardPage";
 
 const App = () => {
-    const {currentUser} = useSelector(state => state.auth)
+    const {currentUser} = useSelector(state => state.auth);
 
     return (
         <InitProvider>

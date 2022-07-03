@@ -1,30 +1,22 @@
-import {
-    Box,
-    Button,
-    CircularProgress,
-    FormControl,
-    InputLabel,
-    MenuItem,
-    Select,
-    Typography
-} from "@mui/material";
+import {Box, Button, CircularProgress, FormControl, InputLabel, MenuItem, Select, Typography} from "@mui/material";
 import {useState} from "react";
+import PropTypes from "prop-types";
 
-export const LoginForm = ({onLogin, users}) => {
-    const [friend, setFriend] = useState()
+export const LoginForm = ({ onLogin, users }) => {
+    const [friend, setFriend] = useState();
 
     if (users === undefined){
         return <CircularProgress sx={{mb: 2}}/>
     }
 
     const handlerChangeFriend = (event) => {
-        setFriend(event.target.value)
+        setFriend(event.target.value);
     }
 
     const renderValueSelected = key => <>{users[key].name}</>
 
     const handlerSubmit = () => {
-        onLogin(friend)
+        onLogin(friend);
     }
 
     return (
@@ -59,4 +51,9 @@ export const LoginForm = ({onLogin, users}) => {
             </Button>
         </>
     )
+}
+
+LoginForm.propTypes = {
+    onLogin: PropTypes.func,
+    users: PropTypes.array
 }

@@ -1,35 +1,35 @@
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {questionService} from "../../services/questionService";
 
-const initialState = {}
+const initialState = {};
 
 export const fetchAllQuestions = createAsyncThunk(
-    'questions/fetchAllQuestions',
+    "questions/fetchAllQuestions",
     async (thunkAPI) => {
-        return await questionService.getAll()
+        return await questionService.getAll();
     }
-)
+);
 
 export const questionsSlice = createSlice({
-    name: 'questions',
+    name: "questions",
     initialState,
     reducers: {
         addVotes: (state, action) => {
-            const {questionId, option, userId} = action.payload
-            state.questions[questionId][option].votes = [...state.questions[questionId][option].votes, userId]
+            const {questionId, option, userId} = action.payload;
+            state.questions[questionId][option].votes = [...state.questions[questionId][option].votes, userId];
         },
         addNewQuestion: (state, action) => {
-            state.questions[action.payload.id] = action.payload
+            state.questions[action.payload.id] = action.payload;
         }
     },
     extraReducers: {
         [fetchAllQuestions.fulfilled]: (state, action) => {
-            state.questions = action.payload
+            state.questions = action.payload;
         }
     },
 })
 
 // Action creators are generated for each case reducer function
-export const {addVotes, addNewQuestion} = questionsSlice.actions
+export const {addVotes, addNewQuestion} = questionsSlice.actions;
 
-export default questionsSlice.reducer
+export default questionsSlice.reducer;

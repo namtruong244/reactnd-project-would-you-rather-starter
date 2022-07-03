@@ -1,35 +1,35 @@
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {userService} from "../../services/userService";
 
 const initialState = {}
 
 export const fetchAllUser = createAsyncThunk(
-    'users/fetchAllUser',
+    "users/fetchAllUser",
     async (thunkAPI) => {
-        return await userService.getAll()
+        return await userService.getAll();
     }
 )
 
 export const usersSlice = createSlice({
-    name: 'users',
+    name: "users",
     initialState,
     reducers: {
         addAnswer: (state, action) => {
-            const {questionId, option, userId} = action.payload
-            state.users[userId].answers[questionId] = option
+            const {questionId, option, userId} = action.payload;
+            state.users[userId].answers[questionId] = option;
         },
         addQuestion: (state, action) => {
-            state.users[action.payload.userId].questions.push(action.payload.questionId)
+            state.users[action.payload.userId].questions.push(action.payload.questionId);
         }
     },
     extraReducers: {
         [fetchAllUser.fulfilled]: (state, action) => {
-            state.users = action.payload
+            state.users = action.payload;
         }
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { addAnswer, addQuestion } = usersSlice.actions
+export const { addAnswer, addQuestion } = usersSlice.actions;
 
-export default usersSlice.reducer
+export default usersSlice.reducer;

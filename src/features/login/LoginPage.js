@@ -7,14 +7,15 @@ import {login} from "./authSlice";
 import {useHistory} from "react-router-dom";
 
 export const LoginPage = () => {
-    const {users} = useSelector(state => state.users)
-    const dispatch = useDispatch()
-    const history = useHistory()
+    const { users } = useSelector(state => state.users);
+    const dispatch = useDispatch();
+    const history = useHistory();
 
     const handlerLogin = (friendId) => {
-        dispatch(login(users[friendId]))
-        history.push("/")
+        dispatch(login(users[friendId]));
+        history.push("/");
     }
+
     return (
         <Box sx={{mt: 2}} maxWidth={"50%"}>
             <Card sx={{minWidth: 275}}>

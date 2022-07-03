@@ -8,23 +8,23 @@ import {AnswerPoll} from "./components/AnswerPoll";
 import {ResultPoll} from "./components/ResultPoll";
 
 export const AnswerPollPage = () => {
-    const {questions} = useSelector(state => state.questions)
-    const {users} = useSelector(state => state.users)
-    const {currentUser} = useSelector(state => state.auth)
-    const dispatch = useDispatch()
-    const {questionId} = useParams()
+    const { questions } = useSelector(state => state.questions);
+    const { users } = useSelector(state => state.users);
+    const { currentUser } = useSelector(state => state.auth);
+    const dispatch = useDispatch();
+    const { questionId } = useParams();
 
-    const author = users[questions[questionId].author]
-    const answer = users[currentUser.id].answers[questionId]
+    const author = users[questions[questionId].author];
+    const answer = users[currentUser.id].answers[questionId];
 
     const submitAnswerHandler = (answer) => {
         const answerInfo = {
             userId: currentUser.id,
             questionId,
             option: answer
-        }
-        dispatch(addAnswer(answerInfo))
-        dispatch(addVotes(answerInfo))
+        };
+        dispatch(addAnswer(answerInfo));
+        dispatch(addVotes(answerInfo));
     }
 
     return (

@@ -1,15 +1,16 @@
 import {Button, FormControl, FormControlLabel, Radio, RadioGroup, Typography} from "@mui/material";
 import {useState} from "react";
+import PropTypes from "prop-types";
 
 export const AnswerPoll = ({onSubmit, questions}) => {
-    const [answer, setAnswer] = useState("")
+    const [answer, setAnswer] = useState("");
 
     const answerChangeHandler = (event) => {
         setAnswer(event.target.value);
     }
 
     const submitAnswerHandler = () => {
-        onSubmit(answer)
+        onSubmit(answer);
     }
 
     return (
@@ -40,4 +41,9 @@ export const AnswerPoll = ({onSubmit, questions}) => {
             </Button>
         </>
     )
+}
+
+AnswerPoll.propTypes = {
+    onSubmit: PropTypes.func,
+    questions: PropTypes.object
 }
