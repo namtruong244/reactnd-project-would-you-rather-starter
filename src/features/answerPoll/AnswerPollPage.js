@@ -1,5 +1,5 @@
 import {Poll} from "../../components/Poll/Poll";
-import {useParams} from "react-router-dom";
+import {Redirect, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {Box} from "@mui/material";
 import {addAnswer} from "../initProvider/usersSlice";
@@ -13,6 +13,10 @@ export const AnswerPollPage = () => {
     const { currentUser } = useSelector(state => state.auth);
     const dispatch = useDispatch();
     const { questionId } = useParams();
+
+    if (questions[questionId] === undefined) {
+        return <Redirect to="/notfound" />
+    }
 
     const author = users[questions[questionId].author];
     const answer = users[currentUser.id].answers[questionId];

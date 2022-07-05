@@ -4,16 +4,20 @@ import {LoginHeader} from "./components/LoginHeader";
 import {LoginForm} from "./components/LoginForm";
 import {useDispatch, useSelector} from "react-redux";
 import {login} from "./authSlice";
-import {useHistory} from "react-router-dom";
+import {Redirect, useLocation} from "react-router-dom";
 
 export const LoginPage = () => {
+    const { currentUser } = useSelector(state => state.auth)
     const { users } = useSelector(state => state.users);
     const dispatch = useDispatch();
-    const history = useHistory();
+    const { state } = useLocation();
 
     const handlerLogin = (friendId) => {
         dispatch(login(users[friendId]));
-        history.push("/");
+    }
+
+    if (currentUser !== null) {
+        return <Redirect to={state?.from || "/"} />
     }
 
     return (
