@@ -16,28 +16,36 @@ export const HomePage = () => {
         setTabValue(newValue);
     };
 
-    const userHasQuestion = Object.keys(users).reduce((prevValue, curValue) => {
+    let userHasQuestion = Object.keys(users).reduce((prevValue, curValue) => {
         const user = users[curValue];
         user.questions.forEach(questionId => {
             if (users[currentUser.id].answers[questionId] === undefined) {
-                prevValue.push({
-                    name: user.name,
-                    avatarURL: user.avatarURL,
-                    questionId: questionId
-                })
+                prevValue.push([
+                    {
+                        name: user.name,
+                        avatarURL: user.avatarURL,
+                        questionId: questionId
+                    },
+                    questions[questionId].timestamp
+                ])
             }
         });
         return prevValue
     }, []);
+    userHasQuestion.sort((a, b) => b[1] - a[1])
 
-    const answeredQuestion = Object.keys(users[currentUser.id].answers).map(questionId => {
+    let answeredQuestion = Object.keys(users[currentUser.id].answers).map(questionId => {
         const userOfQuestion = users[questions[questionId].author]
-        return {
-            name: userOfQuestion.name,
-            avatarURL: userOfQuestion.avatarURL,
-            questionId: questionId
-        }
+        return [
+            {
+                name: userOfQuestion.name,
+                avatarURL: userOfQuestion.avatarURL,
+                questionId: questionId
+            },
+            questions[questionId].timestamp
+        ]
     });
+    answeredQuestion.sort((a, b) => b[1] - a[1])
 
     return (
         <Box sx={{ width: '60%', bgColor: 'background.paper' }} mt={2}>
@@ -48,12 +56,12 @@ export const HomePage = () => {
                 </Tabs>
                 {tabValue === 0 && (
                     <Box display={"flex"} flexWrap={"wrap"} justifyContent={"center"} alignItems={"space-between"}>
-                        {userHasQuestion.map((user, index) => <Segment key={`${user.id}-${index}`} user={user} questions={questions}/>)}
+                        {userHasQuestion.map((user, index) => <Segment key={`${user[0].id}-${index}`} user={user[0]} questions={questions}/>)}
                     </Box>
                 )}
                 {tabValue === 1 && (
                     <Box display={"flex"} flexWrap={"wrap"} justifyContent={"center"} alignItems={"space-between"}>
-                        {answeredQuestion.map((user, index) => <Segment key={`${user.id}-${index}`} user={user} questions={questions} isAnswered={true}/>)}
+                        {answeredQuestion.map((user, index) => <Segment key={`${user[0].id}-${index}`} user={user[0]} questions={questions} isAnswered={true}/>)}
                     </Box>
                 )}
             </Card>

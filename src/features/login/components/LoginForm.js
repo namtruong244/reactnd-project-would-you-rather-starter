@@ -55,5 +55,5 @@ export const LoginForm = ({ onLogin, users }) => {
 
 LoginForm.propTypes = {
     onLogin: PropTypes.func,
-    users: PropTypes.array
+    users: PropTypes.object
 }
